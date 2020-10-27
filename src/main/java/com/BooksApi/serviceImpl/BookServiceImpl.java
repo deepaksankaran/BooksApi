@@ -18,14 +18,14 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public void addBookService(BookModel bookModel) {
 		
-		bookModel=new BookModel();
-		bookModel.setName(bookModel.getName());
-		bookModel.setAuthor(bookModel.getAuthor());
-		bookModel.setDescription(bookModel.getDescription());
-		bookModel.setPrice(bookModel.getPrice());
-		bookModel.setCategory(bookModel.getCategory());
-		bookModel.setRating(bookModel.getRating());
-		bookRepository.save(bookModel);
+//		bookModel=new BookModel();
+//		bookModel.setName(bookModel.getName());
+//		bookModel.setAuthor(bookModel.getAuthor());
+//		bookModel.setDescription(bookModel.getDescription());
+//		bookModel.setPrice(bookModel.getPrice());
+//		bookModel.setCategory(bookModel.getCategory());
+//		bookModel.setRating(bookModel.getRating());
+//		bookRepository.save(bookModel);
 		
 	}
 
@@ -39,6 +39,12 @@ public class BookServiceImpl implements BookService{
 	public BookModel getBooksById(Long id) {
 		// TODO Auto-generated method stub
 		return bookRepository.findById(id).get();
+	}
+
+	@Override
+	public List<String> getCategoryList() {
+		
+		return bookRepository.categoryList();
 	}
 	
 	

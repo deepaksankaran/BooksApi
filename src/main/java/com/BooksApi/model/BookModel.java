@@ -1,9 +1,5 @@
 package com.BooksApi.model;
-
-
 import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,11 +18,13 @@ public class BookModel implements Serializable  {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	private int price;
+	
+	private float rating;
+	
 	private String author;
 	private String description;
 	private String name;
-	private String price;
-	private String rating;
 	private String category;
 	
 	public BookModel() {
@@ -56,16 +54,16 @@ public class BookModel implements Serializable  {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getRating() {
+	public float getRating() {
 		return rating;
 	}
-	public void setRating(String rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 	public String getCategory() {

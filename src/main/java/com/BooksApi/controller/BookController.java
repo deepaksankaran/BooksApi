@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,13 @@ import com.BooksApi.model.BookModel;
 import com.BooksApi.repo.BookRepository;
 import com.BooksApi.service.BookService;
 
-@CrossOrigin("*")
+/**
+ * @author dpzz
+ *
+ */
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(path = "/book")
+@RequestMapping(path = "/books")
 public class BookController {
 
 	@Autowired
@@ -27,19 +32,38 @@ public class BookController {
 
 	@Autowired
 	private BookService bookService;
-
+	
+	/**
+	 * @param bookModel
+	 * @return
+	 */
 	@PostMapping("/add")
 	public BookModel save(@RequestBody BookModel bookModel) {
-
+    
+		bookModel.setName(bookModel.getName());
+		bookModel.setAuthor(bookModel.getAuthor());
+		bookModel.setDescription(bookModel.getDescription());
+		bookModel.setPrice(bookModel.getPrice());
+		bookModel.setCategory(bookModel.getCategory());
+		bookModel.setRating(bookModel.getRating());
+//		 System.out.println("added"+bookRepository.save(bookModel));
 		return bookRepository.save(bookModel);
 	}
 
-	@GetMapping(produces = "application/json")
-	public List<BookModel> listall() {
+	/**
+	 * @return
+	 */
+	@GetMapping("/list")
+	public List<BookModel> listall(Authentication auth) {
+		//System.out.println("booklist"+bookService.getBooksList());
 		return bookService.getBooksList();
 
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<BookModel> getBookById(@PathVariable("id") Long id) {
 		try {
@@ -50,4 +74,16 @@ public class BookController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	/**
+	 * @param auth
+	 * @return
+	 */
+	@GetMapping("/categoryList")
+	public ResponseEntity<List<String>> categoryList(Authentication auth){
+		
+		return new ResponseEntity<List<String>>(bookService.getCategoryList(),HttpStatus.OK);
+		
+	}
+	
 }
