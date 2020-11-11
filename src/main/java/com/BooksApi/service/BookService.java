@@ -19,5 +19,9 @@ public interface BookService {
 	public BookModel getBooksById(Long id);
 	
 	List<String> getCategoryList();
+	
+	List<BookModel> listAll(String keyword);
 
+	BookModel findByBookName(String name);
+	
 }
